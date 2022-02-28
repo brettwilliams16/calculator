@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <title>Calculator</title>
+</head>
+<body>
+    <div class='calculator'>
+        <div id='display'>
+            <div id='display-top'></div>
+            <div id='display-bottom'></div>
+        </div>
+        <div class='clear'>
+            <button id='btnclear'>Clear</button>
+        </div>
+        <div class='buttons'>
+            <button class="btn" onclick="" data-number>7</button>
+            <button class="btn" onclick="" data-number>8</button>
+            <button class="btn" onclick="" data-number>9</button>
+            <button class="btn" onclick="" data-operator>÷</button>
+            <button class="btn" onclick="" data-number>4</button>
+            <button class="btn" onclick="" data-number>5</button>
+            <button class="btn" onclick="" data-number>6</button>
+            <button class="btn" onclick="" data-operator>x</button>
+            <button class="btn" onclick="" data-number>1</button>
+            <button class="btn" onclick="" data-number>2</button>
+            <button class="btn" onclick="" data-number>3</button>
+            <button class="btn" onclick="" data-operator>-</button>
+            <button class="btn" onclick="" data-number>0</button>
+            <button class="btn" onclick="" data-number>.</button>
+            <button class="btn" onclick="" data-operator>+</button>
+            <button class="btn" onclick="" id="equalsbtn">=</button>
+        </div>
+    </div>
+
+
+
+    <script>
+        const number = document.querySelectorAll('[data-number]');
+        const operator = document.querySelectorAll('[data-operator]');
+        const equalOperator = document.getElementById('equalsbtn');
+        const display = document.getElementById('display');
+        const displayTop = document.getElementById('display-top');
+        const displayBottom = document.getElementById('display-bottom');
+        const clearButton = document.getElementById('btnclear');
+
+        let operatorClicked= '';
+        let num1 = '';
+        let num2 = '';
+        
+        function operate(operation, num1, num2)
+        {
+            if(operation=='+')
+            {
+                return add(num1, num2);
+            }
+            else if(operation=='-')
+            {
+                return subtract(num1, num2);
+            }
+            else if(operation=='÷')
+            {
+                return divide(num1,num2);
+            }
+            else if (operation=='x')
+            {
+                return multiply(num1, num2);
+            }
+        }
+        function add(num1, num2)
+        {
+            sum = num1 + num2;
+            return sum;
+        }
+        function subtract(num1, num2)
+        {
+            if (num1 == num2)
+            {
+                return 0;
+            }
+            else {return num1 - num2;}
+        }
+        function multiply(num1, num2)
+        {
+            if (num1 == 0 || num2 == 0)
+            {
+                sum = 0;
+            }
+            else {
+                sum = num1 * num2;
+            }
+            return sum;
+        }
+        function divide(num1, num2)
+        {
+            if(num2 == 0)
+            {
+                return "CANNOT DIVIDE BY 0, ERROR"
+            }
+            quo = num1 / num2;
+            return quo;
+        }
+       
+
+     
+    function clearTop() {
+        displayChild = document.querySelectorAll('.displayChildTop')
+        displayChild.forEach((displayChild) => {
+        displayChild.parentNode.removeChild(displayChild);
+        })
+    }
+    
+    function clearBottom() {
+        displayChildTop = document.querySelectorAll('.displayChildBottom')
+        displayChildTop.forEach((displayChildTop) => {
+        displayChildTop.parentNode.removeChild(displayChildTop);
+        })
+    }
+    number.forEach((number) => {    
+        number.addEventListener('click', () => {
+            if(operatorClicked == '')
+            {
+                num1 += number.textContent
+                num1Log = document.createElement('div');
+                num1Log.textContent = number.textContent;
+                num1Log.classList.add('displayChildTop');
+                displayTop.appendChild(num1Log);
+                num1Log.textcontent = '';
+            }
+            else
+            {
+                num2 += number.textContent;
+                num2Log = document.createElement('div');
+                num2Log.textContent = ' ' + number.textContent;
+                num2Log.classList.add('displayChildTop');
+                displayTop.appendChild(num2Log);
+                num2 = parseInt(num2);
+            }
+            num1 = parseInt(num1);
+        })
+    })
+
+    operator.forEach((operator) => {
+        operator.addEventListener('click', () => {
+            if (operatorClicked != '')
+            {
+                num1 = operate(operatorClicked, num1, num2);
+                num2 = '';
+            }
+            operatorClicked = operator.textContent;
+            operatorLog = document.createElement('div');
+            operatorLog.textContent = operatorClicked;
+            operatorLog.classList.add('displayChildTop');
+            displayTop.appendChild(operatorLog);
+        })
+    })
+
+
+    equalOperator.addEventListener('click', () => {
+        clearBottom();
+        num3 = operate(operatorClicked, num1, num2);
+        numLog = document.createElement('div');
+        numLog.textContent = '= ' + num3;
+        numLog.classList.add('displayChildBottom');
+        displayBottom.appendChild(numLog);
+        num1 = num3;
+        num2 = '';
+        operatorClicked = '';
+        clearTop();
+    });
+
+    clearButton.addEventListener('click', () =>{
+        clearTop();
+        clearBottom();
+        num1 = '';
+        num2 = '';
+        operatorClicked = '';
+    })
+    
+    </script>
+</body>
+</html>

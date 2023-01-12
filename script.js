@@ -19,7 +19,7 @@ operands.forEach(operand => {
         numberOne = topDisplay.textContent;
         topDisplay.textContent += ` ${operand.textContent} `;
     })
-})
+});
 
 numbers.forEach(number => {
     number.addEventListener('click', () =>{
@@ -41,7 +41,7 @@ function clearDisplay() {
 
 function deleteDigit() {
     if(topDisplay.textContent.charAt(topDisplay.textContent.length -1) === ' '){
-        topDisplay.textContent = topDisplay.textContent.slice(0, -2);
+        topDisplay.textContent = topDisplay.textContent.slice(0, -3);
     }
     else {
         topDisplay.textContent = topDisplay.textContent.slice(0, -1);

@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 90vw;
+    background-color: #888;
+}
+
+.calculator {
+    border: 1px solid black;
+    min-height: 50vh;
+    min-width: 15%;
+    background-color: #333;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.display {
+    background-color: white;
+    width: 100%;
+    grid-column: 1 / 5;
+    grid-row: 1;
+}
